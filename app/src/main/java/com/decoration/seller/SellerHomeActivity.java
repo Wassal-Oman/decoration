@@ -262,11 +262,14 @@ public class SellerHomeActivity extends AppCompatActivity implements NavigationV
                 Toast.makeText(this, "You are not logged in!", Toast.LENGTH_SHORT).show();
             }
         } else if(id == R.id.nav_reset_password) {
-            if(auth.getCurrentUser() != null) {
+            if (auth.getCurrentUser() != null) {
                 startActivity(new Intent(this, ResetPasswordActivity.class));
             } else {
                 Toast.makeText(this, "You are not logged in!", Toast.LENGTH_SHORT).show();
             }
+
+        } else if (id == R.id.nav_orders) {
+            Toast.makeText(this, "Customer orders will be available soon!", Toast.LENGTH_SHORT).show();
         } else if(id == R.id.nav_exit) {
             // sign out
             auth.signOut();
@@ -276,6 +279,12 @@ public class SellerHomeActivity extends AppCompatActivity implements NavigationV
         drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        items.clear();
     }
 
     // private class to view data in ListView as custom list items
@@ -324,9 +333,9 @@ public class SellerHomeActivity extends AppCompatActivity implements NavigationV
             MyAdapter.ViewHolder holder = new MyAdapter.ViewHolder();
 
             if(v != null){
-                holder.image = v.findViewById(R.id.iv_item_image);
+                holder.image = v.findViewById(R.id.iv_service_image);
                 holder.name = v.findViewById(R.id.tv_name);
-                holder.color = v.findViewById(R.id.tv_color);
+                holder.color = v.findViewById(R.id.tv_location);
                 holder.price = v.findViewById(R.id.tv_price);
             }
 

@@ -54,7 +54,7 @@ public class AddItemActivity extends AppCompatActivity {
         etName = findViewById(R.id.et_item_name);
         etWidth = findViewById(R.id.et_item_width);
         etHeight = findViewById(R.id.et_item_height);
-        etColor = findViewById(R.id.et_item_color);
+        etColor = findViewById(R.id.et_item_location);
         etPrice = findViewById(R.id.et_item_price);
         etCount = findViewById(R.id.et_item_count);
         ivItem = findViewById(R.id.iv_item_image);

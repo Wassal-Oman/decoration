@@ -24,6 +24,7 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="false"
         android:theme="@style/CustomTheme">
+        <activity android:name=".engineer.ServiceDetailsActivity" />
         <activity
             android:name=".engineer.AddServiceActivity"
             android:label="Add New Service" />

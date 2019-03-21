@@ -52,10 +52,10 @@ public class ItemDetailsActivity extends AppCompatActivity {
         etName = findViewById(R.id.et_item_name);
         etWidth = findViewById(R.id.et_item_width);
         etHeight = findViewById(R.id.et_item_height);
-        etColor = findViewById(R.id.et_item_color);
+        etColor = findViewById(R.id.et_item_location);
         etPrice = findViewById(R.id.et_item_price);
         etCount = findViewById(R.id.et_item_count);
-        ivItem = findViewById(R.id.iv_item_image);
+        ivItem = findViewById(R.id.iv_service_image);
 
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
@@ -257,6 +257,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         }
     }
 
+    // method to update item with new image
     private void updateItemWithNewImage(final String name, final String width, final String height, final String price, final String color, final String count, String imagePath) {
         // get current timestamp
         Long ts = System.currentTimeMillis() / 1000;
@@ -287,7 +288,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
                     // prepare data
                     Map<String, Object> itemData = new HashMap<>();
-                    itemData.put("id", id);
+                    itemData.put("id", timestamp);
                     itemData.put("name", name);
                     itemData.put("width", width);
                     itemData.put("height", height);

@@ -6,4 +6,149 @@
     android:layout_height="match_parent"
     tools:context=".engineer.ServiceDetailsActivity">
 
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="goBack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_service_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="selectImage"
+        android:src="@drawable/placeholder"
+        app:civ_border_color="@color/colorPrimary"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_item_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <EditText
+        android:id="@+id/et_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/edit_text"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/et_service_desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_service_image" />
+
+    <EditText
+        android:id="@+id/et_service_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/text_area"
+        android:ems="10"
+        android:gravity="start"
+        android:hint="Description"
+        android:padding="10dp"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/et_item_location"
+        app:layout_constraintEnd_toEndOf="@+id/et_item_name"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/et_item_name"
+        app:layout_constraintTop_toBottomOf="@+id/et_item_name" />
+
+    <EditText
+        android:id="@+id/et_item_location"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edit_text"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Location"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/et_item_price"
+        app:layout_constraintEnd_toEndOf="@+id/et_service_desc"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/et_service_desc"
+        app:layout_constraintTop_toBottomOf="@+id/et_service_desc" />
+
+    <EditText
+        android:id="@+id/et_item_price"
+        android:layout_width="363dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edit_text"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Price"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="@+id/et_item_location"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/et_item_location"
+        app:layout_constraintTop_toBottomOf="@+id/et_item_location" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/et_item_price"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/et_item_price"
+        app:layout_constraintTop_toBottomOf="@+id/et_item_price">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:onClick="deleteService"
+            android:text="Delete"
+            android:textColor="#fff" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:onClick="updateService"
+            android:text="Update"
+            android:textColor="#fff" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:onClick="clearFields"
+            android:text="Clear"
+            android:textColor="#fff" />
+
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

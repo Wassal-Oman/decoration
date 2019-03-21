@@ -1,9 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".engineer.AddServiceActivity">
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="goBack"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_service_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="selectImage"
+        android:src="@drawable/placeholder"
+        app:civ_border_color="@color/colorPrimary"
+        app:civ_border_width="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_service_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <EditText
+        android:id="@+id/et_service_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/edit_text"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/et_service_desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_service_image" />
+
+    <EditText
+        android:id="@+id/et_service_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/text_area"
+        android:ems="10"
+        android:hint="Description"
+        android:inputType="textPersonName"
+        android:lines="3"
+        android:gravity="start"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/et_service_location"
+        app:layout_constraintEnd_toEndOf="@+id/et_service_name"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/et_service_name"
+        app:layout_constraintTop_toBottomOf="@+id/et_service_name" />
+
+    <EditText
+        android:id="@+id/et_service_location"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edit_text"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Location"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/et_service_price"
+        app:layout_constraintEnd_toEndOf="@+id/et_service_desc"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/et_service_desc"
+        app:layout_constraintTop_toBottomOf="@+id/et_service_desc" />
+
+    <EditText
+        android:id="@+id/et_service_price"
+        android:layout_width="363dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/edit_text"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Price"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/btn_add"
+        app:layout_constraintEnd_toEndOf="@+id/et_service_location"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/et_service_location"
+        app:layout_constraintTop_toBottomOf="@+id/et_service_location" />
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="363dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/button"
+        android:onClick="addService"
+        android:text="Add Service"
+        android:textColor="#fff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/et_service_price"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/et_service_price"
+        app:layout_constraintTop_toBottomOf="@+id/et_service_price" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,10 +1,13 @@
 package com.decoration;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -147,9 +150,38 @@ public class ProfileActivity extends AppCompatActivity {
     // method to trigger delete account button click
     public void deleteAccount(View view) {
 
+        // show alert dialog
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ProfileActivity.this);
+        alertDialogBuilder.setMessage("Are you sure to remove account?");
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                delete();
+            }
+        });
+        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    // method to remove user account
+    void delete() {
         // check for user type
         if(!type.equals("Admin")) {
             final String user_id = auth.getCurrentUser().getUid();
+
+            // check for user type
+            switch (type) {
+                case "Seller":
+                    deleteItems(user_id);
+                    break;
+            }
 
             final ProgressDialog dialog = ProgressDialog.show(this, "Deleting account", "Please wait...", false, false);
             // remove from auth
@@ -164,13 +196,6 @@ public class ProfileActivity extends AppCompatActivity {
                                 dialog.dismiss();
 
                                 if(task.isSuccessful()) {
-
-                                    switch (type) {
-                                        case "Seller":
-                                            deleteItems(user_id);
-                                            break;
-                                    }
-
                                     auth.signOut();
                                     startActivity(new Intent(ProfileActivity.this, LoginActivity.class));
                                     finish();
@@ -191,6 +216,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     // method to delete items from database based on user id
     private void deleteItems(String user_id) {
+
         // delete items related to user id
         db.collection("items").whereEqualTo("user_id", user_id).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -200,15 +226,29 @@ public class ProfileActivity extends AppCompatActivity {
 
                         // create a storage reference
                         StorageReference storageRef = storage.getReference();
-                        String imageName = document.getId() + ".jpg";
+                        final String imageName = document.getId() + ".jpg";
+
+                        Log.d("IMAGE", imageName);
 
                         // delete image file from storage
                         storageRef.child(imageName).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()) {
+                                    Log.d("Storage Deleted", imageName);
                                     // delete item data from database
-                                    db.collection("items").document(document.getId()).delete();
+                                    db.collection("items").document(document.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()) {
+                                                Log.d("DB deleted", imageName);
+                                            } else {
+                                                Log.d("DB not deleted", imageName);
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    Log.d("Storage not Delete", imageName);
                                 }
                             }
                         });

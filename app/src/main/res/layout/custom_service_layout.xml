@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Item Name"
+                android:text="Service Name"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
                 android:textSize="7pt"
@@ -51,11 +51,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Item Color"
+                    android:text="Location"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
                     android:textSize="7pt"
-                    android:drawableLeft="@drawable/ic_color"
+                    android:drawableLeft="@drawable/ic_location"
                     android:drawablePadding="5dp"/>
 
                 <View
@@ -68,7 +68,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:text="Item Price"
+                    android:text="Service Price"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
                     android:textSize="7pt"
