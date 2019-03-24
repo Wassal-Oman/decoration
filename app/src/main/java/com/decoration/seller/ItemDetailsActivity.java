@@ -57,6 +57,12 @@ public class ItemDetailsActivity extends AppCompatActivity {
         etCount = findViewById(R.id.et_item_count);
         ivItem = findViewById(R.id.iv_service_image);
 
+        etName.setEnabled(false);
+        etWidth.setEnabled(false);
+        etHeight.setEnabled(false);
+        etColor.setEnabled(false);
+        ivItem.setEnabled(false);
+
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
 
@@ -130,6 +136,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         finish();
     }
 
+
     // method to trigger delete button click
     public void deleteItem(View view) {
         // create a storage reference
@@ -202,6 +209,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
             Toast.makeText(this, "Please enter count", Toast.LENGTH_SHORT).show();
             return;
         }
+
 
         update(name, width, height, price, color, count, imagePath);
     }

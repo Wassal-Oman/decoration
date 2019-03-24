@@ -55,6 +55,10 @@ public class ServiceDetailsActivity extends AppCompatActivity {
         etPrice = findViewById(R.id.et_item_price);
         ivService = findViewById(R.id.iv_service_image);
 
+        etName.setEnabled(false);
+        ivService.setEnabled(false);
+
+
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
 

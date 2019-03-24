@@ -122,10 +122,15 @@ public class AddServiceActivity extends AppCompatActivity {
         String location = etLocation.getText().toString().trim();
         String user_id = auth.getCurrentUser().getUid();
 
+
         // validation
         if(name.isEmpty()) {
             Toast.makeText(this, "Please enter service name", Toast.LENGTH_SHORT).show();
             return;
+        }
+        if(!name.matches("[a-zA-Z][a-zA-Z]{2,50}")){
+            etName.setError("Name should start with liter");
+
         }
 
         if(desc.isEmpty()) {
@@ -137,6 +142,7 @@ public class AddServiceActivity extends AppCompatActivity {
             Toast.makeText(this, "Please enter service price", Toast.LENGTH_SHORT).show();
             return;
         }
+
 
         if(location.isEmpty()) {
             Toast.makeText(this, "Please enter location", Toast.LENGTH_SHORT).show();

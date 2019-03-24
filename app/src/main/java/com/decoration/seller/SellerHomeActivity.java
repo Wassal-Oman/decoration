@@ -146,6 +146,7 @@ public class SellerHomeActivity extends AppCompatActivity implements NavigationV
 
         // clear list
         items.clear();
+        lvItems.setAdapter(null);
 
         // fetch all items from database
         final ProgressDialog dialog = ProgressDialog.show(this, "Loading Items", "Please wait...", false, false);

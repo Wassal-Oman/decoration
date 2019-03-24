@@ -152,6 +152,12 @@ public class AddItemActivity extends AppCompatActivity {
             Toast.makeText(this, "Please enter count", Toast.LENGTH_SHORT).show();
             return;
         }
+        if(count.equals("0")){
+            if(count.length() != 1){
+                etCount.setError("you can enter only one zero");
+                return;
+            }
+        }
 
         if(imagePath.isEmpty()) {
             Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show();
