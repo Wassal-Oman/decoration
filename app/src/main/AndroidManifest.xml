@@ -2,10 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.decoration">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="ANDROID.PERMISSION.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="ANDROID.PERMISSION.READ_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -24,14 +25,15 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="false"
         android:theme="@style/CustomTheme">
-        <activity android:name=".engineer.ServiceDetailsActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <activity
-            android:name=".engineer.AddServiceActivity"
-            android:label="Add New Service" />
-        <activity
-            android:name=".seller.AddItemActivity"
-            android:label="Add New Item" />
-        <activity android:name=".seller.ItemDetailsActivity" />
+            android:name=".customer.CustomerOrderActivity"
+            android:label="Order Details"
+            android:theme="@style/AppTheme"/>
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -80,6 +82,24 @@
             android:name=".admin.UserAdmissionActivity"
             android:label="User Registration Request"
             android:theme="@style/AppTheme" />
+        <activity android:name=".customer.CustomerServiceDetailsActivity" />
+        <activity android:name=".customer.CustomerItemDetailsActivity" />
+        <activity
+            android:name=".customer.CustomerServicesListActivity"
+            android:label="List of Decoration Services"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".customer.CustomerItemsListActivity"
+            android:label="List of Decoration Products"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".engineer.ServiceDetailsActivity" />
+        <activity
+            android:name=".engineer.AddServiceActivity"
+            android:label="Add New Service" />
+        <activity
+            android:name=".seller.AddItemActivity"
+            android:label="Add New Item" />
+        <activity android:name=".seller.ItemDetailsActivity" />
     </application>
 
 </manifest>

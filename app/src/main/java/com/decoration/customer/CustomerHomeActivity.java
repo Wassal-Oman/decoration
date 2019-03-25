@@ -155,4 +155,14 @@ public class CustomerHomeActivity extends AppCompatActivity implements Navigatio
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    // method to trigger decoration products button
+    public void goToDecorationProducts(View view) {
+        startActivity(new Intent(this, CustomerItemsListActivity.class));
+    }
+
+    // method to trigger decoration service button
+    public void goToDecorationServices(View view) {
+        startActivity(new Intent(this, CustomerServicesListActivity.class));
+    }
 }

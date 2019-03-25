@@ -18,6 +18,18 @@
         <item>Decoration Engineer</item>
     </string-array>
 
+    <string-array name="colors">
+        <item>White</item>
+        <item>Black</item>
+        <item>Brown</item>
+        <item>Green</item>
+        <item>Blue</item>
+        <item>Yellow</item>
+        <item>Red</item>
+        <item>Purple</item>
+        <item>Pink</item>
+    </string-array>
+
     <string name="title_activity_main">MainActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -31,4 +43,5 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="accept">Accept</string>
     <string name="reject">Reject</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

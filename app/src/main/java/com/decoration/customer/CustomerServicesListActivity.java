@@ -1,4 +1,4 @@
-package com.decoration.engineer;
+package com.decoration.customer;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,18 +24,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.decoration.ProfileActivity;
 import com.decoration.R;
-import com.decoration.ResetPasswordActivity;
+import com.decoration.engineer.EngineerHomeActivity;
+import com.decoration.engineer.ServiceDetailsActivity;
 import com.decoration.models.Service;
-import com.decoration.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -45,21 +39,13 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EngineerHomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class CustomerServicesListActivity extends AppCompatActivity {
 
     // widgets
-    TextView drawer_user_name;
-    TextView drawer_user_email;
     ListView lvServices;
     SearchView searchView;
-    FloatingActionButton fab;
-
-    // drawer
-    DrawerLayout drawer;
-    NavigationView navigation;
 
     // firebase authentication and database
-    private FirebaseAuth auth;
     private FirebaseFirestore db;
 
     // data
@@ -69,75 +55,36 @@ public class EngineerHomeActivity extends AppCompatActivity implements Navigatio
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_engineer_home);
+        setContentView(R.layout.activity_customer_services_list);
 
         // initialize
-        drawer = findViewById(R.id.drawer_layout);
-        navigation = findViewById(R.id.nav_view);
         lvServices = findViewById(R.id.lv_services);
         searchView = findViewById(R.id.search_view);
-        fab = findViewById(R.id.fab);
         services = new ArrayList<>();
 
-        auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        // show home button with title
-        if(getSupportActionBar() != null){
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_menu);
+        // check for default toolbar
+        if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-        // initialize header widgets
-        View header = navigation.getHeaderView(0);
-        drawer_user_name = header.findViewById(R.id.drawer_user_name);
-        drawer_user_email= header.findViewById(R.id.drawer_user_email);
-
-        // set navigation listener
-        navigation.setNavigationItemSelectedListener(this);
-
-        // add fab click listener
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(EngineerHomeActivity.this, AddServiceActivity.class));
-            }
-        });
     }
+
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        // get logged user
-        FirebaseUser loggedUser = auth.getCurrentUser();
-
-        if(loggedUser != null) {
-
-            // get user details
-            db.collection("users").document(loggedUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-
-                    // retrieve user data
-                    User user = documentSnapshot.toObject(User.class);
-
-                    // check if user exists
-                    if(user != null) {
-                        drawer_user_name.setText(user.getName());
-                        drawer_user_email.setText(user.getEmail());
-                    }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    auth.signOut();
-                    finish();
-                }
-            });
-        }
-
+        // load list of items
         loadListOfServices();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     // method to load list of services
@@ -148,7 +95,7 @@ public class EngineerHomeActivity extends AppCompatActivity implements Navigatio
 
         // fetch all items from database
         final ProgressDialog dialog = ProgressDialog.show(this, "Loading Services", "Please wait...", false, false);
-        db.collection("services").whereEqualTo("user_id", auth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("services").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 dialog.dismiss();
@@ -161,13 +108,6 @@ public class EngineerHomeActivity extends AppCompatActivity implements Navigatio
                 viewListOfServices(services);
             }
         });
-    }
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        services.clear();
-        lvServices.setAdapter(null);
     }
 
     // method to view list of services
@@ -206,7 +146,7 @@ public class EngineerHomeActivity extends AppCompatActivity implements Navigatio
                     Service _service = (Service) adapter.getItem(pos);
 
                     // go to details activity
-                    Intent intent = new Intent(EngineerHomeActivity.this, ServiceDetailsActivity.class);
+                    Intent intent = new Intent(CustomerServicesListActivity.this, CustomerServiceDetailsActivity.class);
                     intent.putExtra("id", _service.getId());
                     intent.putExtra("name", _service.getName());
                     intent.putExtra("location", _service.getLocation());
@@ -221,67 +161,6 @@ public class EngineerHomeActivity extends AppCompatActivity implements Navigatio
         } else {
             Toast.makeText(this, "No Services Available", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        if(id == android.R.id.home) {
-            if (drawer.isDrawerOpen(GravityCompat.START)) {
-                drawer.closeDrawer(GravityCompat.START);
-            } else {
-                drawer.openDrawer(GravityCompat.START);
-            }
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_profile) {
-            if(auth.getCurrentUser() != null) {
-                startActivity(new Intent(this, ProfileActivity.class));
-            } else {
-                Toast.makeText(this, "You are not logged in!", Toast.LENGTH_SHORT).show();
-            }
-        } else if(id == R.id.nav_reset_password) {
-            if(auth.getCurrentUser() != null) {
-                startActivity(new Intent(this, ResetPasswordActivity.class));
-            } else {
-                Toast.makeText(this, "You are not logged in!", Toast.LENGTH_SHORT).show();
-            }
-        } else if(id == R.id.nav_appointments) {
-            Toast.makeText(this, "Customer appointments will be available soon!", Toast.LENGTH_SHORT).show();
-        } else if(id == R.id.nav_exit) {
-            // sign out
-            auth.signOut();
-            finish();
-        }
-
-        drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     // private class to view data in ListView as custom list items
@@ -336,9 +215,7 @@ public class EngineerHomeActivity extends AppCompatActivity implements Navigatio
                 holder.price = v.findViewById(R.id.tv_price);
             }
 
-            if(data.size() <= 0){
-                Toast.makeText(EngineerHomeActivity.this, "No Data Available", Toast.LENGTH_LONG).show();
-            } else {
+            if(data.size() > 0){
                 service = data.get(i);
                 holder.name.setText(service.getName());
                 holder.location.setText(service.getLocation());

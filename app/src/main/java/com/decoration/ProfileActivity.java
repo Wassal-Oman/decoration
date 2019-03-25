@@ -181,9 +181,14 @@ public class ProfileActivity extends AppCompatActivity {
                 case "Seller":
                     deleteItems(user_id);
                     break;
+                case "Decoration Engineer":
+                    deleteServices(user_id);
+                    break;
             }
 
+            // progress dialog
             final ProgressDialog dialog = ProgressDialog.show(this, "Deleting account", "Please wait...", false, false);
+
             // remove from auth
             auth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -238,6 +243,50 @@ public class ProfileActivity extends AppCompatActivity {
                                     Log.d("Storage Deleted", imageName);
                                     // delete item data from database
                                     db.collection("items").document(document.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()) {
+                                                Log.d("DB deleted", imageName);
+                                            } else {
+                                                Log.d("DB not deleted", imageName);
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    Log.d("Storage not Delete", imageName);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+    // method to delete services from database based on user id
+    private void deleteServices(String user_id) {
+
+        // delete items related to user id
+        db.collection("services").whereEqualTo("user_id", user_id).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    for (final QueryDocumentSnapshot document : task.getResult()) {
+
+                        // create a storage reference
+                        StorageReference storageRef = storage.getReference();
+                        final String imageName = document.getId() + ".jpg";
+
+                        Log.d("IMAGE", imageName);
+
+                        // delete image file from storage
+                        storageRef.child(imageName).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()) {
+                                    Log.d("Storage Deleted", imageName);
+                                    // delete item data from database
+                                    db.collection("services").document(document.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if(task.isSuccessful()) {

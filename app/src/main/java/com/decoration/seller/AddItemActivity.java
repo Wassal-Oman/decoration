@@ -6,8 +6,13 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.decoration.LoginActivity;
@@ -33,7 +38,8 @@ public class AddItemActivity extends AppCompatActivity {
 
     // widgets
     CircleImageView ivItem;
-    EditText etName, etWidth, etHeight, etColor, etPrice, etCount;
+    EditText etName, etWidth, etHeight, etPrice, etCount;
+    Spinner spColors;
 
     // attributes
     private static final int GALLERY_REQUEST = 1111;
@@ -54,14 +60,20 @@ public class AddItemActivity extends AppCompatActivity {
         etName = findViewById(R.id.et_item_name);
         etWidth = findViewById(R.id.et_item_width);
         etHeight = findViewById(R.id.et_item_height);
-        etColor = findViewById(R.id.et_item_location);
         etPrice = findViewById(R.id.et_item_price);
         etCount = findViewById(R.id.et_item_count);
         ivItem = findViewById(R.id.iv_item_image);
+        spColors = findViewById(R.id.sp_item_color);
 
         auth = FirebaseAuth.getInstance();
         storage = FirebaseStorage.getInstance();
         db = FirebaseFirestore.getInstance();
+
+        // load list of colors
+        String[] colors = getResources().getStringArray(R.array.colors);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, colors);
+
+        spColors.setAdapter(adapter);
     }
 
     @Override
@@ -118,7 +130,7 @@ public class AddItemActivity extends AppCompatActivity {
         String width = etWidth.getText().toString().trim();
         String height = etHeight.getText().toString().trim();
         String price = etPrice.getText().toString().trim();
-        String color = etColor.getText().toString().trim();
+        String color = spColors.getSelectedItem().toString();
         String count = etCount.getText().toString().trim();
         String user_id = auth.getCurrentUser().getUid();
 
@@ -143,25 +155,36 @@ public class AddItemActivity extends AppCompatActivity {
             return;
         }
 
-        if(color.isEmpty()) {
-            Toast.makeText(this, "Please enter color", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         if(count.isEmpty()) {
             Toast.makeText(this, "Please enter count", Toast.LENGTH_SHORT).show();
             return;
-        }
-        if(count.equals("0")){
-            if(count.length() != 1){
-                etCount.setError("you can enter only one zero");
-                return;
-            }
         }
 
         if(imagePath.isEmpty()) {
             Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show();
             return;
+        }
+
+        if(!name.matches("[a-zA-Z][a-zA-Z]{2,50}")) {
+            etName.setError("Name should start with liter");
+            return;
+        }
+
+        if(Integer.parseInt(width) < 1) {
+            etWidth.setError("Width cannot be zero");
+            return;
+        }
+
+        if(Integer.parseInt(height) < 1) {
+            etHeight.setError("Height cannot be zero");
+            return;
+        }
+
+        if(Integer.parseInt(count) == 0){
+            if(count.length() != 1){
+                etCount.setError("you can enter only one zero");
+                return;
+            }
         }
 
         addNewItem(name, width, height, price, color, count, user_id, imagePath);

@@ -66,7 +66,7 @@
         android:layout_marginTop="8dp"
         android:orientation="horizontal"
         android:weightSum="3"
-        app:layout_constraintBottom_toTopOf="@+id/et_item_location"
+        app:layout_constraintBottom_toTopOf="@+id/sp_item_color"
         app:layout_constraintEnd_toEndOf="@+id/et_item_name"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/et_item_name"
@@ -106,16 +106,14 @@
             android:inputType="number" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/et_item_location"
-        android:layout_width="360dp"
+    <Spinner
+        android:id="@+id/sp_item_color"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/edit_text"
+        android:background="@drawable/spinner"
         android:ems="10"
         android:gravity="center"
-        android:hint="Color"
-        android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/et_item_price"
         app:layout_constraintEnd_toEndOf="@+id/linear_layout"
         app:layout_constraintHorizontal_bias="0.5"
@@ -124,19 +122,19 @@
 
     <EditText
         android:id="@+id/et_item_price"
-        android:layout_width="363dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@drawable/edit_text"
         android:ems="10"
         android:gravity="center"
         android:hint="Price"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         app:layout_constraintBottom_toTopOf="@+id/et_item_count"
-        app:layout_constraintEnd_toEndOf="@+id/et_item_location"
+        app:layout_constraintEnd_toEndOf="@+id/sp_item_color"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/et_item_location"
-        app:layout_constraintTop_toBottomOf="@+id/et_item_location" />
+        app:layout_constraintStart_toStartOf="@+id/sp_item_color"
+        app:layout_constraintTop_toBottomOf="@+id/sp_item_color" />
 
     <EditText
         android:id="@+id/et_item_count"
@@ -156,7 +154,7 @@
 
     <Button
         android:id="@+id/btn_add"
-        android:layout_width="363dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:background="@drawable/button"

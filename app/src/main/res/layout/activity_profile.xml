@@ -54,6 +54,8 @@
         android:inputType="textEmailAddress"
         android:textAlignment="center"
         android:textColorHint="@color/colorTextPrimary"
+        android:enabled="false"
+        android:textColor="#80000000"
         app:layout_constraintBottom_toTopOf="@+id/et_phone"
         app:layout_constraintEnd_toEndOf="@+id/et_name"
         app:layout_constraintHorizontal_bias="0.5"

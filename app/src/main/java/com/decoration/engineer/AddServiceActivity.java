@@ -128,9 +128,10 @@ public class AddServiceActivity extends AppCompatActivity {
             Toast.makeText(this, "Please enter service name", Toast.LENGTH_SHORT).show();
             return;
         }
+
         if(!name.matches("[a-zA-Z][a-zA-Z]{2,50}")){
             etName.setError("Name should start with liter");
-
+            return;
         }
 
         if(desc.isEmpty()) {
