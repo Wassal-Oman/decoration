@@ -1,6 +1,7 @@
 package com.decoration.customer;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -116,6 +117,9 @@ public class CustomerServiceDetailsActivity extends AppCompatActivity {
 
     // method to trigger make appointment button
     public void makeAppointment(View view) {
-
+        Intent intent = new Intent(this, CustomerAppointmentActivity.class);
+        intent.putExtra("service_id", id);
+        intent.putExtra("engineer_id", user_id);
+        startActivity(intent);
     }
 }

@@ -13,6 +13,10 @@
             android:icon="@drawable/ic_password_reset"
             android:title="Reset Password" />
         <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_help"
+            android:title="Help" />
+        <item
             android:id="@+id/nav_exit"
             android:icon="@drawable/ic_exit"
             android:title="Log out" />

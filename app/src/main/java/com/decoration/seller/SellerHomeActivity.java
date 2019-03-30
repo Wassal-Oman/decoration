@@ -25,6 +25,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.decoration.HelpActivity;
 import com.decoration.ProfileActivity;
 import com.decoration.R;
 import com.decoration.ResetPasswordActivity;
@@ -268,9 +269,10 @@ public class SellerHomeActivity extends AppCompatActivity implements NavigationV
             } else {
                 Toast.makeText(this, "You are not logged in!", Toast.LENGTH_SHORT).show();
             }
-
         } else if (id == R.id.nav_orders) {
-            Toast.makeText(this, "Customer orders will be available soon!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, SellerOrderListActivity.class));
+        } else if(id == R.id.nav_help) {
+            startActivity(new Intent(this, HelpActivity.class));
         } else if(id == R.id.nav_exit) {
             // sign out
             auth.signOut();

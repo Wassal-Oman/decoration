@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.decoration">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -25,15 +26,40 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="false"
         android:theme="@style/CustomTheme">
+        <activity
+            android:name=".HelpActivity"
+            android:theme="@style/AppTheme"
+            android:label="Help"/>
+        <activity
+            android:name=".engineer.EngineerAcceptedAppointListActivity"
+            android:label="Accepted Appointment List"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".engineer.EngineerAppointDetailsActivity" />
+        <activity
+            android:name=".engineer.EngineerAppointListActivity"
+            android:label="Appointment List"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".customer.CustomerAppointmentActivity"
+            android:label="Make Appointment"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".seller.SellerOrderListActivity"
+            android:label="List Of Orders"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".customer.CustomerPaymentActivity"
+            android:label="Payment Details"
+            android:theme="@style/AppTheme" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".customer.CustomerOrderActivity"
+            android:name=".customer.CustomerMapActivity"
             android:label="Order Details"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

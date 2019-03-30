@@ -25,6 +25,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.decoration.HelpActivity;
 import com.decoration.ProfileActivity;
 import com.decoration.R;
 import com.decoration.ResetPasswordActivity;
@@ -272,7 +273,11 @@ public class EngineerHomeActivity extends AppCompatActivity implements Navigatio
                 Toast.makeText(this, "You are not logged in!", Toast.LENGTH_SHORT).show();
             }
         } else if(id == R.id.nav_appointments) {
-            Toast.makeText(this, "Customer appointments will be available soon!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, EngineerAppointListActivity.class));
+        } else if (id == R.id.nav_accepted_appointments) {
+            startActivity(new Intent(this, EngineerAcceptedAppointListActivity.class));
+        } else if(id == R.id.nav_help) {
+            startActivity(new Intent(this, HelpActivity.class));
         } else if(id == R.id.nav_exit) {
             // sign out
             auth.signOut();

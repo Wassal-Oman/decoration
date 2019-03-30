@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.decoration.HelpActivity;
 import com.decoration.ProfileActivity;
 import com.decoration.R;
 import com.decoration.ResetPasswordActivity;
@@ -144,11 +145,13 @@ public class AdminHomeActivity extends AppCompatActivity implements NavigationVi
                 Toast.makeText(this, "You are not logged in!", Toast.LENGTH_SHORT).show();
             }
         } else if(id == R.id.nav_reset_password) {
-            if(auth.getCurrentUser() != null) {
+            if (auth.getCurrentUser() != null) {
                 startActivity(new Intent(this, ResetPasswordActivity.class));
             } else {
                 Toast.makeText(this, "You are not logged in!", Toast.LENGTH_SHORT).show();
             }
+        } else if(id == R.id.nav_help) {
+            startActivity(new Intent(this, HelpActivity.class));
         } else if(id == R.id.nav_exit) {
             // sign out
             auth.signOut();

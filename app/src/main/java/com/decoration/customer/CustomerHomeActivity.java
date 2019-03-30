@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.decoration.HelpActivity;
 import com.decoration.ProfileActivity;
 import com.decoration.R;
 import com.decoration.ResetPasswordActivity;
@@ -145,6 +146,8 @@ public class CustomerHomeActivity extends AppCompatActivity implements Navigatio
             } else {
                 Toast.makeText(this, "You are not logged in!", Toast.LENGTH_SHORT).show();
             }
+        } else if(id == R.id.nav_help) {
+            startActivity(new Intent(this, HelpActivity.class));
         } else if(id == R.id.nav_exit) {
             // sign out
             auth.signOut();

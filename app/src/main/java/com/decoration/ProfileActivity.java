@@ -184,6 +184,10 @@ public class ProfileActivity extends AppCompatActivity {
                 case "Decoration Engineer":
                     deleteServices(user_id);
                     break;
+                case "Customer":
+                    deleteOrders(user_id);
+                    deleteAppointments(user_id);
+                    break;
             }
 
             // progress dialog
@@ -265,7 +269,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     // method to delete services from database based on user id
     private void deleteServices(String user_id) {
-
         // delete items related to user id
         db.collection("services").whereEqualTo("user_id", user_id).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -298,6 +301,58 @@ public class ProfileActivity extends AppCompatActivity {
                                     });
                                 } else {
                                     Log.d("Storage not Delete", imageName);
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+    // method to delete orders based on user id
+    private void deleteOrders(String user_id) {
+        // delete items related to user id
+        db.collection("orders").whereEqualTo("user_id", user_id).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    for (final QueryDocumentSnapshot document : task.getResult()) {
+
+                        // delete item data from database
+                        db.collection("orders").document(document.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()) {
+                                    Log.d("DB deleted", document.getId());
+                                } else {
+                                    Log.d("DB not deleted", document.getId());
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+    // method to delete appointments
+    private void deleteAppointments(String user_id) {
+        // delete items related to user id
+        db.collection("appointments").whereEqualTo("user_id", user_id).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    for (final QueryDocumentSnapshot document : task.getResult()) {
+
+                        // delete item data from database
+                        db.collection("appointments").document(document.getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()) {
+                                    Log.d("DB deleted", document.getId());
+                                } else {
+                                    Log.d("DB not deleted", document.getId());
                                 }
                             }
                         });
